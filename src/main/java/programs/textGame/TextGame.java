@@ -1,5 +1,7 @@
 package main.java.programs.textGame;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class TextGame {
 
     /** In the grid, "." are empty spaces, "s" are start, "f" are end */
@@ -9,7 +11,9 @@ public class TextGame {
     }
 
     public void runGame() {
-        generateGrid(2, 2);
+        generateEmptyGrid(1, 4);
+        fillGrid("sfkdttt");
+
         for (Character[] row : grid) {
             for (Character cell : row) {
                 System.out.print(cell);
@@ -18,7 +22,7 @@ public class TextGame {
         }
     }
 
-    private void generateGrid(int width, int height) {
+    private void generateEmptyGrid(int width, int height) {
         grid = new Character[height][width];
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
@@ -26,4 +30,17 @@ public class TextGame {
             }
         }
     }
+
+    private void fillGrid(String symbols) {
+        while (!symbols.isEmpty()) {
+            int randRow = ThreadLocalRandom.current().nextInt(0, grid.length);
+            int randCol = ThreadLocalRandom.current().nextInt(0, grid[0].length);
+
+            if (grid[randRow][randCol] == '.') {
+                grid[randRow][randCol] = symbols.charAt(0);
+                symbols = symbols.substring(1);
+            }
+        }
+    }
+
 }
