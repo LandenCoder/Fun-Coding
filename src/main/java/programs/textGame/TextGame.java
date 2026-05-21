@@ -19,14 +19,15 @@ public class TextGame {
         generateEmptyGrid(1, 4);
         fillGrid("sf");
 
-        for (Character[] row : grid) {
-            for (Character cell : row) {
-                System.out.print(cell);
-            }
-            System.out.println();
-        }
+        // for (Character[] row : grid) {
+        // for (Character cell : row) {
+        // System.out.print(cell);
+        // }
+        // System.out.println();
+        // }
     }
 
+    // #region grid
     private void generateEmptyGrid(int width, int height) {
         grid = new Character[height][width];
         for (int row = 0; row < height; row++) {
@@ -47,5 +48,6 @@ public class TextGame {
             }
         }
     }
+    // #endregion
 
 }
