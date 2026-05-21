@@ -12,7 +12,7 @@ public class TextGame {
 
     public void runGame() {
         generateEmptyGrid(1, 4);
-        fillGrid("sfkdttt");
+        fillGrid("sf");
 
         for (Character[] row : grid) {
             for (Character cell : row) {
