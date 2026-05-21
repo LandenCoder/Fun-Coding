@@ -14,7 +14,8 @@ public class Input {
         while (!scanner.hasNextLine()) {
         }
         String input = scanner.nextLine();
-        // scanner.close();
+        // scanner.close(); this shut the scanner down for the rest of the program,
+        // which is bad if the user types an unusable input
         return input;
     }
 
@@ -26,7 +27,7 @@ public class Input {
     public String getReply() {
         String in = getRawInput();
         in = removeSpaces(in);
-        in.toLowerCase();
+        in = in.toLowerCase();
         return in;
     }
 
@@ -37,7 +38,7 @@ public class Input {
      */
     private String removeSpaces(String input) {
         String[] split = input.split(" ");
-        return split.toString();
+        return String.join("", split);
     }
 
     /**

@@ -8,10 +8,9 @@ public class Introducer {
     private Input input;
 
     private String[] programs;
-    private String systemToRun;
 
     public Introducer() {
-        programs = AllowedPrograms.allowedPrograms();
+        programs = AllowedPrograms.allowedProgramList();
         input = new Input();
     }
 
@@ -24,7 +23,6 @@ public class Introducer {
         System.out.println();
         while (!stop) {
             String val = input.getReply();
-            System.out.println(val);///////////////////////////////////// for debugging
             for (String option : programs) {
                 if (option.equals(val)) {
                     return val;
