@@ -6,6 +6,11 @@ public class TextGame {
 
     /** In the grid, "." are empty spaces, "s" are start, "f" are end */
     Character[][] grid;
+    /**
+     * row/y, col/x, direction (in degrees, with 0 being straight forward/up and so
+     * forth)
+     */
+    Integer[] player = { 0, 0, 0 };
 
     public TextGame() {
     }
