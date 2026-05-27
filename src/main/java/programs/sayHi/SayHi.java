@@ -1,4 +1,4 @@
-package main.java.programs;
+package main.java.programs.sayHi;
 
 public class SayHi {
     public SayHi() {

@@ -1,7 +1,6 @@
-package main.java.runners;
+package main.java.maincode;
 
 import main.java.strings.Input;
-import main.java.docs.AllowedPrograms;
 
 public class RunCode {
 

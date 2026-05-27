@@ -1,6 +1,4 @@
-package main.java.runners;
-
-import main.java.runners.RunCode;
+package main.java.maincode;
 
 public final class Main {
     RunCode code = new RunCode();
