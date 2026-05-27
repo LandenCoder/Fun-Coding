@@ -26,7 +26,7 @@ public class RunCode {
         // for each member in the allowed programs, if it matches that program, run it
         for (int i = 0; i < allowedPrograms.length; i++) {
             if (toRun.equals(allowedPrograms[i])) {
-                printLines(1);
+                printLines(2);
                 programs[i].run();
             }
         }

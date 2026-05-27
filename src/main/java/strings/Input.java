@@ -49,12 +49,29 @@ public class Input {
      */
     public String getYesNo() {
         String input = getRawInput();
-        input.toLowerCase();
+        input = input.toLowerCase();
         input = removeSpaces(input);
         if (input.startsWith("y")) {
             return "yes";
         } else if (input.startsWith("n")) {
             return "no";
+        }
+        return null;
+    }
+
+    /**
+     * @param allowed a string of all the options that are allowed, as one character
+     *                for each option
+     * @return the input if it is one of the allowed options, or null if it is not
+     */
+    public String getAllowed(String allowed) {
+        String input = getRawInput();
+        input = input.toLowerCase();
+        input = removeSpaces(input);
+        for (String option : allowed.split("")) {
+            if (input.startsWith(option)) {
+                return option;
+            }
         }
         return null;
     }

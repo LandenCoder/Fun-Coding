@@ -1,0 +1,7 @@
+Grid spaces: 
+ - "." empty space
+ - "s" start
+ - "f" finish
+
+Items:
+ - 
