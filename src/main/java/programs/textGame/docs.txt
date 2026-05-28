@@ -1,7 +1,12 @@
 Grid spaces: 
- - "." empty space
+ - "." empty field
  - "s" start
  - "f" finish
+ - "k" key at this space
+ - "d" door
+ - "c" chest
+ - "t" trader
+ - "e" enemy
 
 Items:
- - 
+ - "k" key

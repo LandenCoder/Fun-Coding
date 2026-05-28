@@ -3,6 +3,9 @@ package main.java.strings;
 import java.util.Scanner;
 
 public class Input {
+
+    StringTools strings = new StringTools();
+
     public Input() {
     }
 
@@ -26,19 +29,9 @@ public class Input {
      */
     public String getReply() {
         String in = getRawInput();
-        in = removeSpaces(in);
+        in = strings.removeSpaces(in);
         in = in.toLowerCase();
         return in;
-    }
-
-    /**
-     * removes all spaces from a string
-     * 
-     * @return the spaceless string
-     */
-    private String removeSpaces(String input) {
-        String[] split = input.split(" ");
-        return String.join("", split);
     }
 
     /**
@@ -50,7 +43,7 @@ public class Input {
     public String getYesNo() {
         String input = getRawInput();
         input = input.toLowerCase();
-        input = removeSpaces(input);
+        input = strings.removeSpaces(input);
         if (input.startsWith("y")) {
             return "yes";
         } else if (input.startsWith("n")) {
@@ -62,16 +55,20 @@ public class Input {
     /**
      * @param allowed a string of all the options that are allowed, as one character
      *                for each option
-     * @return the input if it is one of the allowed options, or null if it is not
+     * @return the input if it as one of the allowed options
      */
     public String getAllowed(String allowed) {
-        String input = getRawInput();
-        input = input.toLowerCase();
-        input = removeSpaces(input);
-        for (String option : allowed.split("")) {
-            if (input.startsWith(option)) {
-                return option;
+        boolean isDone = false;
+        while (!isDone) {
+            String input = getRawInput();
+            input = input.toLowerCase();
+            input = strings.removeSpaces(input);
+            for (String option : allowed.split("")) {
+                if (input.startsWith(option)) {
+                    return option;
+                }
             }
+            System.out.println("This is not an option. please try again.");
         }
         return null;
     }

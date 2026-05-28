@@ -27,6 +27,8 @@ public class RunCode {
         for (int i = 0; i < allowedPrograms.length; i++) {
             if (toRun.equals(allowedPrograms[i])) {
                 printLines(2);
+                System.out.println("Running " + allowedPrograms[i] + "...");
+                printLines(1);
                 programs[i].run();
             }
         }
