@@ -1,12 +1,17 @@
-Grid spaces: 
- - "." empty field
+ - "." empty field (shouldn't be in the actual game grid)
+
+Limited Grid spaces: 
  - "s" start
  - "f" finish
  - "k" key at this space
  - "d" door
+
+Unlimited Grid spaces:
  - "c" chest
  - "t" trader
  - "e" enemy
+ - "m" money
+ - "n" nothing
 
 Items:
  - "k" key

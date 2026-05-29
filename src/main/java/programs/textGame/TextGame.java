@@ -14,7 +14,8 @@ public class TextGame {
     String[][] grid;
     /**
      * The descriptions of each grid space, used in printing the surroundings of the
-     * player
+     * player. Each space will be a description of that space, being able to follow
+     * "you are standing in" or "up ahead you see" and so forth
      */
     String[][] gridSpaceDescriptions = new String[][] {};
 
@@ -37,10 +38,11 @@ public class TextGame {
     /** Keep running the game is this is false */
     boolean isGameOver = false;
 
-    final int GRID_WIDTH = 2;
-    final int GRID_HEIGHT = 2;
+    final int GRID_WIDTH = 10;
+    final int GRID_HEIGHT = 10;
+    final String LIMITED_GRID_SPACES = "sfkd";
     /** Will add one of each of the characters to the grid at a random location */
-    final String GRID_SPACES = "sfkdcctee";
+    final String UNLIMITED_GRID_SPACES = "ctemn";
     // "wasd" = movement, "i" being to open the inventory
     final String ALLOWED_COMMANDS = "wasdi";
 
@@ -65,14 +67,25 @@ public class TextGame {
         }
     }
 
-    private void fillGrid(String symbols) {
-        while (!symbols.isEmpty()) {
+    private void fillGrid(String limitedSymbols, String unlimitedSymbols) {
+        // fill the grid with one of each of the limited symbols
+        while (!limitedSymbols.isEmpty()) {
             int randRow = random.random(0, grid.length - 1);
             int randCol = random.random(0, grid[0].length - 1);
 
             if (grid[randRow][randCol].equals(".")) {
-                grid[randRow][randCol] = String.valueOf(symbols.charAt(0));
-                symbols = symbols.substring(1);
+                grid[randRow][randCol] = String.valueOf(limitedSymbols.charAt(0));
+                limitedSymbols = limitedSymbols.substring(1);
+            }
+        }
+
+        // fill the grid with random instances of the unlimited symbols
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col].equals(".")) {
+                    int randSymbol = random.random(0, unlimitedSymbols.length() - 1);
+                    grid[row][col] = String.valueOf(unlimitedSymbols.charAt(randSymbol));
+                }
             }
         }
     }
@@ -99,12 +112,33 @@ public class TextGame {
         }
     }
 
+    private Integer[] getSpaceCoordinates(int direction) {
+        // Get the direction to check, making sure it is between 0 and 360
+        int directionToCheck = ((player[2] + direction) % 360 + 360) % 360;
+        int row = player[0];
+        int col = player[1];
+        if (directionToCheck == 0) {
+            row -= 1;
+        } else if (directionToCheck == 90) {
+            col += 1;
+        } else if (directionToCheck == 180) {
+            row += 1;
+        } else if (directionToCheck == 270) {
+            col -= 1;
+        }
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length) {
+            return null; // Out of bounds
+        }
+        return new Integer[] { row, col };
+    }
+
     // #endregion
     // #region game init and run
 
     private void initializeGame() {
         generateEmptyGrid(GRID_WIDTH, GRID_HEIGHT);
-        fillGrid(GRID_SPACES);
+        fillGrid(LIMITED_GRID_SPACES, UNLIMITED_GRID_SPACES);
+        initializeSpacesDescriptions();
         printInstructions();
     }
 
@@ -122,6 +156,41 @@ public class TextGame {
     }
 
     private void initializeSpacesDescriptions() {
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                switch (grid[row][col]) {
+                    case "s":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "f":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "d":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "c":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "t":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "e":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "m":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    case "n":
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                    default:
+                        // If the symbol is none of the above, it is an item
+                        gridSpaceDescriptions[row][col] = 
+                        break;
+                }
+            }
+        }
+
     }
 
     private void runGameLoop() {
@@ -148,8 +217,30 @@ public class TextGame {
     }
 
     private void printLocation() {
-        String location = grid[player[0]][player[1]];
+        String location = gridSpaceDescriptions[player[0]][player[1]];
+        Integer[] up = getSpaceCoordinates(0);
+        Integer[] right = getSpaceCoordinates(90);
+        Integer[] down = getSpaceCoordinates(180);
+        Integer[] left = getSpaceCoordinates(270);
 
+        println("You are standing in " + location + ".");
+        println("Up ahead you see " + gridSpaceDescriptions[up[0]][up[1]] + ".");
+        println("To your right you see " + gridSpaceDescriptions[right[0]][right[1]] + ".");
+        println("Behind you you see " + gridSpaceDescriptions[down[0]][down[1]] + ".");
+        println("To your left you see " + gridSpaceDescriptions[left[0]][left[1]] + ".");
+
+    }
+
+    private String generateRandomSetting() {
+        String[] settings = new String[] {
+                "a dense forest, with towering trees and green, leafy foliage up in the sky",
+                "a tall, grassy hill",
+                "a muddy swamp, with murky water and the occasional weedy patch",
+                "some broken, crumbling ruins, covered with vines and moss",
+                "a clear, blue stream"
+        };
+        int randomNum = random.random(0, settings.length - 1);
+        return settings[randomNum];
     }
 
     // #endregion
